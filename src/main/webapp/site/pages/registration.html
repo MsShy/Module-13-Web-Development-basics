@@ -34,23 +34,23 @@
 		
 		<div class="content">
 					
-					<form class="registration" action="login.html" method="post">
+					<form class="registration" action="/register" method="post">
             	<div class="errors"> </div>
 						<div class="blok">
 								<p>Last name:</p>
-								<input class="last-name" type="text" placeholder="Your last name">
+								<input class="last-name" type="text" name="lastName" placeholder="Your last name">
 								
 								<p>First name:</p>
-								 <input class="first-name" type="text" placeholder="Your first name">
+								 <input class="first-name" type="text" name="firstName" placeholder="Your first name">
 								 
 								<p>Email:</p>
-								<input class="email" type="email" placeholder="Your email">
+								<input class="email" type="email" name="email" placeholder="Your email">
 									
-								<p>Year of birth:</p>
-								<input class="year_birth" type="number" min="1920" max="2016" placeholder="year">
+							<p>Year of birth:</p>
+								<input class="year_birth" type="text" min="1920" max="2016" name="yearBirth" placeholder="year">
 									
 								<p>Choose your password:</p>
-								<input class="password" type="password" placeholder="Your password">
+								<input class="password" type="password" name="pass" placeholder="Your password">
 					
 						</div>
 						

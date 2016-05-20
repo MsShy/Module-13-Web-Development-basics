@@ -25,12 +25,12 @@ public class UserDao implements DaoManager {
 	public List<User> selectAll(String tableName) {
 		LinkedList<User> users = new LinkedList<>();
 
-		String select = String.format("SELECT * FROM %s ORDER BY ID", tableName);
+		String select = String.format("SELECT * FROM %s ORDER BY id", tableName);
 		try (PreparedStatement statement = connection.prepareStatement(select);
 		     ResultSet resultSet = statement.executeQuery()) {
 			while (resultSet.next()) {
 				users.add(new User(resultSet.getInt("id"), resultSet.getString("lastname"), resultSet.getString("firstname"),
-						resultSet.getString("email"), resultSet.getString("password")));
+						resultSet.getString("email"),resultSet.getString("YEAROFBIRTH"), resultSet.getString("password")));
 			}
 		} catch (SQLException e) {
 			log.error(e.getMessage(), e);
@@ -40,14 +40,34 @@ public class UserDao implements DaoManager {
 	}
 
 	@Override
+	public User selectLogin(String email) {
+
+
+		String select = String.format("SELECT * FROM USERS WHERE EMAIL ='%s'", email);
+		try (PreparedStatement statement = connection.prepareStatement(select);
+			 ResultSet resultSet = statement.executeQuery()) {
+			while (resultSet.next()) {
+				user=(new User(  resultSet.getInt("id"), resultSet.getString("lastname"), resultSet.getString("firstname"),
+						resultSet.getString("email"),resultSet.getString("YEAROFBIRTH"), resultSet.getString("password")));
+			}
+		} catch (SQLException e) {
+			log.error(e.getMessage(), e);
+		}
+
+		return user;
+	}
+
+
+	@Override
 	public int insert(User user) {
 		int rows = -1;
-		String insert = "INSERT INTO USERS (LASTNAME, FIRSTNAME, EMAIL, PASSWORD) VALUES (?, ?, ?, ?)";
+		String insert = "INSERT INTO USERS (LASTNAME, FIRSTNAME, EMAIL, YEAROFBIRTH, PASSWORD) VALUES (?, ?, ?, ?, ?)";
 		try (PreparedStatement statement = connection.prepareStatement(insert)) {
 			statement.setString(1, user.getLastName());
 			statement.setString(2, user.getFirtsName());
 			statement.setString(3, user.getEmail());
-			statement.setString(4, user.getPassword());
+			statement.setString(4, user.getYearBirth());
+			statement.setString(5, user.getPassword());
 
 			rows = statement.executeUpdate();
 
