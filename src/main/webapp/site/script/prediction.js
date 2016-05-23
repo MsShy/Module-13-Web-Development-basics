@@ -11,10 +11,27 @@ var prediction=[
 ['Please, accept my best most heartfelt sincerest wishes!']
 ];
 
-
 $(document).ready(function () {
+	$('.cookie').click(function () {
+
+
+		$.getJSON('ControllerCookie',  function (data) {
+			$.each(data, function (index, element) {
+
+				if (index === 'cookie') {
+					$('.massage').text(element);
+					console.log(element);
+					console.log(index);
+				}
+			})
+		})
+	})
+});
+
+/*$(document).ready(function () {
 	$(".cookie").click(function(){
 
+ $('.massage').text("ffk");
  $.getJSON('ControllerCookie',  function (data) {
 
  $.each(data, function (index, element) {
@@ -30,7 +47,7 @@ $(document).ready(function () {
 
 
 });
-});
+});*/
 
 
 /*	$.getJSON('ControllerCookie',  function (data) {
