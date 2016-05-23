@@ -15,23 +15,36 @@ var prediction=[
 $(document).ready(function () {
 	$(".cookie").click(function(){
 
-		getCookie();
+ $.getJSON('ControllerCookie',  function (data) {
+
+ $.each(data, function (index, element) {
+
+ if (index === 'cookie') {
+ $('.massage').text(element);
+ console.log(element);
+ console.log(index);
+ }
+
+ });
+ });
 
 
 });
 });
 
-function getCookie() {
-	$.get('ControllerCookie',  function (data) {
+
+/*	$.getJSON('ControllerCookie',  function (data) {
+
 		$.each(data, function (index, element) {
 
 			if (index === 'cookie') {
 				$('.massage').text(element);
+				console.log(element);
 			}
 
 		});
-	});
-}
+	});*/
+
 /*$.ajax({
 	url: 'getPrediction',
 	method: 'get',
