@@ -1,5 +1,7 @@
 package dao;
 
+import dao.substance.Cookie;
+import dao.substance.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +23,7 @@ public class Main {
 
         Connection connection = factory.getConnection();
         DaoManager manager = factory.getUserDao(connection);
+        DaoManager cookieManager = factory.getCookieDao(connection);
 
 
         User user1 = new User("Yurash", "Yurik", "misterY@mail.com","1990",  "853254dsf");
@@ -29,11 +32,20 @@ public class Main {
 
         //	manager.delete();
             log.info(""+rows);
-        List<User> users = manager.selectAll("users");
+       List<Object> users = manager.selectAll("users");
 
-        for (User user : users) {
+        for (Object user : users) {
             System.out.print(user.toString());
         }
+
+
+List<Object> cookies=cookieManager.selectAll("cookies");
+        for (Object cookie : cookies) {
+            System.out.println(cookie.toString());
+        }
+
+        Object cookie=cookieManager.selectById(3);
+        System.out.println(cookie);
 
         User user = manager.selectLogin("rich@mail.com");
         if (user.getEmail().equals("rich@mail.com")) {

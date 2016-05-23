@@ -1,5 +1,7 @@
 package dao;
 
+import dao.substance.Cookie;
+import dao.substance.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,8 +24,8 @@ public class UserDao implements DaoManager {
 	}
 
 	@Override
-	public List<User> selectAll(String tableName) {
-		LinkedList<User> users = new LinkedList<>();
+	public List<Object> selectAll(String tableName) {
+		LinkedList<Object> users = new LinkedList<>();
 
 		String select = String.format("SELECT * FROM %s ORDER BY id", tableName);
 		try (PreparedStatement statement = connection.prepareStatement(select);
@@ -55,6 +57,11 @@ public class UserDao implements DaoManager {
 		}
 
 		return user;
+	}
+
+	@Override
+	public Object selectById(int id) {
+		return null;
 	}
 
 

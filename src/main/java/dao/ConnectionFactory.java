@@ -43,8 +43,13 @@ public class ConnectionFactory implements Factory {
 	}
 
 	@Override
-	public void closePool() {
+	public DaoManager getCookieDao(Connection connection) {
+		return new CookieDao(connection);
+	}
+	@Override
+	public boolean closePool() {
 		pool.close();
+		return false;
 	}
 
 }

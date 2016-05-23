@@ -1,17 +1,22 @@
 package dao;
 
+import dao.substance.Cookie;
+import dao.substance.User;
+
 import java.util.List;
 
 public interface DaoManager {
 
 
-	List<User> selectAll(String tableName);
+    List<Object> selectAll(String tableName);
 
-User selectLogin(String email);
+    User selectLogin(String email);
 
-	int insert(User user);
+    Object selectById(int id);
 
-	int delete();
+    int insert(User user);
+
+    int delete();
 
 
 }

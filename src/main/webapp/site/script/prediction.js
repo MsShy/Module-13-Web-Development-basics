@@ -13,11 +13,71 @@ var prediction=[
 
 
 $(document).ready(function () {
+	$(".cookie").click(function(){
+
+		getCookie();
+
+
+});
+});
+
+function getCookie() {
+	$.get('ControllerCookie',  function (data) {
+		$.each(data, function (index, element) {
+
+			if (index === 'cookie') {
+				$('.massage').text(element);
+			}
+
+		});
+	});
+}
+/*$.ajax({
+	url: 'getPrediction',
+	method: 'get',
+	success:  $(document).ready(function () {
+		$('.cookie').click (function (data) {
+
+		$.each(data, function(key, val){
+			if(key==="cookie"){
+
+			$('.message' ).text(val);
+			}
+
+		});
+		
+	})
+})
+});*/
+/*$(document).ready(function () {
+$(".cookie").click(function(){
+	$.ajax({
+		url: 'getPrediction',
+		method: 'get',
+		success:  (function (data) {
+
+
+				$.each(data, function(key, val){
+					if(key==="cookie") {
+						$('.message').text(val);
+					}
+					else{
+						$('.message').text("fkfkfk");
+					}
+				})
+})
+})
+});
+});*/
+
+
+/*$(document).ready(function () {
 	$('.cookie').click(function () {
 		var index = Math.floor(Math.random()*prediction.length);
 		$('.message' ).text(prediction[index]);
 	});
 });
+*/
 
 $(document).ready(function() {
 
@@ -27,4 +87,3 @@ $(document).ready(function() {
 	});
 
 
-	

@@ -8,8 +8,9 @@ public interface Factory {
 	Connection getConnection() throws InterruptedException;
 
 	DaoManager getUserDao(Connection connection);
+	DaoManager getCookieDao(Connection connection);
 
-	void closePool();
+	boolean closePool();
 
 
 }

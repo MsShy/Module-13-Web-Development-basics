@@ -1,4 +1,4 @@
-package dao;
+package dao.substance;
 
 public class User {
 
