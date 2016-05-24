@@ -11,56 +11,22 @@ var prediction=[
 ['Please, accept my best most heartfelt sincerest wishes!']
 ];
 
+
+
 $(document).ready(function () {
 	$('.cookie').click(function () {
-
-
 		$.getJSON('ControllerCookie',  function (data) {
 			$.each(data, function (index, element) {
-
-				if (index === 'cookie') {
-					$('.massage').text(element);
-					console.log(element);
-					console.log(index);
+				if (index === "cookie") {
+					$('.message' ).text(element);
 				}
 			})
-		})
-	})
-});
-
-/*$(document).ready(function () {
-	$(".cookie").click(function(){
-
- $('.massage').text("ffk");
- $.getJSON('ControllerCookie',  function (data) {
-
- $.each(data, function (index, element) {
-
- if (index === 'cookie') {
- $('.massage').text(element);
- console.log(element);
- console.log(index);
- }
-
- });
- });
-
-
-});
-});*/
-
-
-/*	$.getJSON('ControllerCookie',  function (data) {
-
-		$.each(data, function (index, element) {
-
-			if (index === 'cookie') {
-				$('.massage').text(element);
-				console.log(element);
-			}
-
 		});
-	});*/
+	});
+});
+
+	
+
 
 /*$.ajax({
 	url: 'getPrediction',
@@ -78,26 +44,6 @@ $(document).ready(function () {
 		
 	})
 })
-});*/
-/*$(document).ready(function () {
-$(".cookie").click(function(){
-	$.ajax({
-		url: 'getPrediction',
-		method: 'get',
-		success:  (function (data) {
-
-
-				$.each(data, function(key, val){
-					if(key==="cookie") {
-						$('.message').text(val);
-					}
-					else{
-						$('.message').text("fkfkfk");
-					}
-				})
-})
-})
-});
 });*/
 
 

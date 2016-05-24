@@ -1,8 +1,8 @@
 package controller;
 
 import dao.ConnectionFactory;
-import dao.DaoManager;
 import dao.Factory;
+import dao.UserDao;
 import dao.substance.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +34,7 @@ public class ControllerRegister extends HttpServlet {
         try {
 
             connection = factory.getConnection();
-            DaoManager manager = factory.getUserDao(connection);
+            UserDao manager = factory.getUserDao(connection);
 
             String lastName = request.getParameter("lastName");
             String firstName = request.getParameter("firstName");
@@ -42,8 +42,13 @@ public class ControllerRegister extends HttpServlet {
             String yearBirth = request.getParameter("yearBirth");
             String password = request.getParameter("pass");
 
-            User user1 = new User(lastName, firstName, email, yearBirth, password);
-            int rows = manager.insert(user1);
+            User user = new User();//lastName, firstName, email, yearBirth, password);
+            user.setLastName(lastName);
+            user.setFirtsName(firstName);
+            user.setEmail(email);
+            user.setYearBirth(yearBirth);
+            user.setPassword(password);
+            int rows = manager.insert(user);
 
             factory.closePool();
             if (rows > 0) {

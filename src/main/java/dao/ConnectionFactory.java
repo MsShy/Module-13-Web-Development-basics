@@ -1,9 +1,11 @@
 package dao;
 
 import dao.pool.ConnectionPool;
+import dao.substance.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.jws.soap.SOAPBinding;
 import java.sql.Connection;
 
 public class ConnectionFactory implements Factory {
@@ -38,12 +40,12 @@ public class ConnectionFactory implements Factory {
 	}
 
 	@Override
-	public DaoManager getUserDao(Connection connection) {
+	public UserDao getUserDao(Connection connection) {
 		return new UserDao(connection);
 	}
 
 	@Override
-	public DaoManager getCookieDao(Connection connection) {
+	public CookieDao getCookieDao(Connection connection) {
 		return new CookieDao(connection);
 	}
 	@Override

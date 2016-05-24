@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CookieDao implements DaoManager {
+public class CookieDao  {
     Cookie cookie;
     private Connection connection;
     private static final Logger log = LoggerFactory.getLogger(UserDao.class);
@@ -22,7 +22,7 @@ public class CookieDao implements DaoManager {
         this.connection = connection;
     }
 
-    @Override
+
     public List<Object> selectAll(String tableName) {
 
         LinkedList<Object> cookies = new LinkedList<>();
@@ -31,7 +31,11 @@ public class CookieDao implements DaoManager {
         try (PreparedStatement statement = connection.prepareStatement(select);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                cookies.add(new Cookie(resultSet.getInt("id"), resultSet.getString("cookie")));
+                cookie=new Cookie();
+                cookie.setId(resultSet.getInt("id"));
+                cookie.setCookie(resultSet.getString("cookie"));
+
+                cookies.add(cookie);
             }
         } catch (SQLException e) {
             log.error(e.getMessage(), e);
@@ -42,19 +46,18 @@ public class CookieDao implements DaoManager {
 
     }
 
-    @Override
-    public User selectLogin(String email) {
-        return null;
-    }
 
-    @Override
     public Object selectById(int id) {
 
         String select = String.format("SELECT * FROM COOKIES WHERE ID ='%s'", id);
         try (PreparedStatement statement = connection.prepareStatement(select);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                cookie = (new Cookie(resultSet.getInt("id"),resultSet.getString("cookie")));
+
+                cookie=new Cookie();
+                cookie.setId(resultSet.getInt("id"));
+                cookie.setCookie(resultSet.getString("cookie"));
+
             }
         } catch (SQLException e) {
             log.error(e.getMessage(), e);
@@ -64,13 +67,6 @@ public class CookieDao implements DaoManager {
 
     }
 
-    @Override
-    public int insert(User user) {
-        return 0;
-    }
 
-    @Override
-    public int delete() {
-        return 0;
-    }
+
 }

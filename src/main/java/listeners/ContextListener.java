@@ -2,7 +2,6 @@ package listeners;
 
 
 import dao.ConnectionFactory;
-import dao.DaoManager;
 import dao.Factory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

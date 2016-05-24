@@ -1,8 +1,8 @@
 package controller;
 
 import dao.ConnectionFactory;
-import dao.DaoManager;
 import dao.Factory;
+import dao.UserDao;
 import dao.substance.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +32,7 @@ public class ControllerLogin extends HttpServlet {
         try {
 
             connection = factory.getConnection();
-            DaoManager manager = factory.getUserDao(connection);
+            UserDao manager = factory.getUserDao(connection);
             String email = request.getParameter("email");
             String password = request.getParameter("password");
 

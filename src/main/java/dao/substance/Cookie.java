@@ -6,14 +6,7 @@ public class Cookie {
     private int id;
     private String cookie;
 
-    public Cookie( int id,String cookie) {
-        this.cookie = cookie;
-        this.id = id;
-    }
-    public Cookie( String cookie) {
-        this.cookie = cookie;
 
-    }
 
     public int getId() {
         return id;

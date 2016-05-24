@@ -12,92 +12,101 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class UserDao implements DaoManager {
+public class UserDao {
 
-	User user;
-	private Connection connection;
+    User user;
+    private Connection connection;
 
-	private static final Logger log = LoggerFactory.getLogger(UserDao.class);
+    private static final Logger log = LoggerFactory.getLogger(UserDao.class);
 
-	public UserDao(final Connection connection) {
-		this.connection = connection;
-	}
-
-	@Override
-	public List<Object> selectAll(String tableName) {
-		LinkedList<Object> users = new LinkedList<>();
-
-		String select = String.format("SELECT * FROM %s ORDER BY id", tableName);
-		try (PreparedStatement statement = connection.prepareStatement(select);
-		     ResultSet resultSet = statement.executeQuery()) {
-			while (resultSet.next()) {
-				users.add(new User(resultSet.getInt("id"), resultSet.getString("lastname"), resultSet.getString("firstname"),
-						resultSet.getString("email"),resultSet.getString("YEAROFBIRTH"), resultSet.getString("password")));
-			}
-		} catch (SQLException e) {
-			log.error(e.getMessage(), e);
-		}
-
-		return users;
-	}
-
-	@Override
-	public User selectLogin(String email) {
+    public UserDao(final Connection connection) {
+        this.connection = connection;
+    }
 
 
-		String select = String.format("SELECT * FROM USERS WHERE EMAIL ='%s'", email);
-		try (PreparedStatement statement = connection.prepareStatement(select);
-			 ResultSet resultSet = statement.executeQuery()) {
-			while (resultSet.next()) {
-				user=(new User(  resultSet.getInt("id"), resultSet.getString("lastname"), resultSet.getString("firstname"),
-						resultSet.getString("email"),resultSet.getString("YEAROFBIRTH"), resultSet.getString("password")));
-			}
-		} catch (SQLException e) {
-			log.error(e.getMessage(), e);
-		}
+    public List<Object> selectAll(String tableName) {
+        LinkedList<Object> users = new LinkedList<>();
 
-		return user;
-	}
+        String select = String.format("SELECT * FROM %s ORDER BY id", tableName);
+        try (PreparedStatement statement = connection.prepareStatement(select);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                user = new User();
+               user.setId(resultSet.getInt("id"));
+                user.setLastName(resultSet.getString("lastname"));
+                user.setFirtsName(resultSet.getString("firstname"));
+                user.setEmail(resultSet.getString("email"));
+                user.setYearBirth(resultSet.getString("YEAROFBIRTH"));
+                user.setPassword(resultSet.getString("password"));
 
-	@Override
-	public Object selectById(int id) {
-		return null;
-	}
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            log.error(e.getMessage(), e);
+        }
+
+        return users;
+    }
 
 
-	@Override
-	public int insert(User user) {
-		int rows = -1;
-		String insert = "INSERT INTO USERS (LASTNAME, FIRSTNAME, EMAIL, YEAROFBIRTH, PASSWORD) VALUES (?, ?, ?, ?, ?)";
-		try (PreparedStatement statement = connection.prepareStatement(insert)) {
-			statement.setString(1, user.getLastName());
-			statement.setString(2, user.getFirtsName());
-			statement.setString(3, user.getEmail());
-			statement.setString(4, user.getYearBirth());
-			statement.setString(5, user.getPassword());
+    public User selectLogin(String email) {
 
-			rows = statement.executeUpdate();
 
-		} catch (SQLException e) {
-			log.error(e.getMessage(), e);
-		}
-		return rows;
-	}
+        String select = String.format("SELECT * FROM USERS WHERE EMAIL ='%s'", email);
+        try (PreparedStatement statement = connection.prepareStatement(select);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                user = new User();
+                user.setId(resultSet.getInt("id"));
+                user.setLastName(resultSet.getString("lastname"));
+                user.setFirtsName(resultSet.getString("firstname"));
+                user.setEmail(resultSet.getString("email"));
+                user.setYearBirth(resultSet.getString("YEAROFBIRTH"));
+                user.setPassword(resultSet.getString("password"));
 
-	@Override
-	public int delete() {
-		int rows = -1;
+				/*user=(new User(  resultSet.getInt("id"), resultSet.getString("lastname"), resultSet.getString("firstname"),
+                        resultSet.getString("email"),resultSet.getString("YEAROFBIRTH"), resultSet.getString("password")));*/
+            }
+        } catch (SQLException e) {
+            log.error(e.getMessage(), e);
+        }
 
-		String field = "DELETE from USERS WHERE ID >=?";
-		try (PreparedStatement statement = connection.prepareStatement(field)) {
-			statement.setInt(1, 34);
-			rows = statement.executeUpdate();
-			System.out.println("Delete count = " + rows);
-		} catch (SQLException e) {
-			log.error(e.getMessage(), e);
-		}
-		return rows;
-	}
+        return user;
+    }
+
+
+    public int insert(User user) {
+        int rows = -1;
+        String insert = "INSERT INTO USERS (LASTNAME, FIRSTNAME, EMAIL, YEAROFBIRTH, PASSWORD) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(insert)) {
+            statement.setString(1, user.getLastName());
+            statement.setString(2, user.getFirtsName());
+            statement.setString(3, user.getEmail());
+            statement.setString(4, user.getYearBirth());
+            statement.setString(5, user.getPassword());
+
+            rows = statement.executeUpdate();
+
+        } catch (SQLException e) {
+            log.error(e.getMessage(), e);
+        }
+        return rows;
+    }
+
+
+    public int delete() {
+        int rows = -1;
+
+        String field = "DELETE from USERS WHERE ID >=?";
+        try (PreparedStatement statement = connection.prepareStatement(field)) {
+            statement.setInt(1, 34);
+            rows = statement.executeUpdate();
+            System.out.println("Delete count = " + rows);
+        } catch (SQLException e) {
+            log.error(e.getMessage(), e);
+        }
+        return rows;
+    }
 
 
 }

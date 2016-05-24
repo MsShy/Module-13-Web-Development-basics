@@ -10,7 +10,8 @@ public class User {
 	private String password;
 
 
-	public User(final int id, final String lastName, final String firtsName, final String email, String yearBirth, final String password) {
+
+/*public User(final int id, final String lastName, final String firtsName, final String email, String yearBirth, final String password) {
 		this.id = id;
 		this.lastName = lastName;
 		this.firtsName = firtsName;
@@ -29,7 +30,7 @@ public class User {
 	public User( final String password) {
 
 		this.password = password;
-	}
+	}*/
 
 	public String getYearBirth() {
 		return yearBirth;
@@ -63,6 +64,18 @@ public class User {
 
 	public void setPassword(final String password) {
 		this.password = password;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setYearBirth(String yearBirth) {
+		this.yearBirth = yearBirth;
 	}
 
 	@Override

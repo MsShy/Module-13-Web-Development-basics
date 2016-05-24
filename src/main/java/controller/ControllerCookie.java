@@ -2,10 +2,9 @@ package controller;
 
 
 import dao.ConnectionFactory;
-import dao.DaoManager;
+import dao.CookieDao;
 import dao.Factory;
 
-import dao.substance.Cookie;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.List;
-import java.util.Random;
 
 
 @WebServlet(urlPatterns = {"/ControllerCookie"})
@@ -38,7 +36,7 @@ public class ControllerCookie extends HttpServlet {
         try {
 
             connection = factory.getConnection();
-            DaoManager cookieManager = factory.getCookieDao(connection);
+            CookieDao cookieManager = factory.getCookieDao(connection);
             List<Object> cookies = cookieManager.selectAll("cookies");
             int cookiesLength = cookies.size();
             int id = getRandom(cookiesLength);
