@@ -38,7 +38,7 @@ public class Main {
         user.setPassword("fjdjdjdd");
         int rows = manager.insert(user);
 
-        //	manager.delete();
+        //manager.delete();
        log.info("" + rows);
         List<Object> users = manager.selectAll("users");
 
@@ -55,11 +55,11 @@ public class Main {
         Object cookie = cookieManager.selectById(3);
         System.out.println(cookie);
 
-         manager.selectLogin("rich@mail.com");
-        if (user.getEmail().equals("rich@mail.com")) {
-            System.out.printf(user.getPassword());
+         User user1=manager.selectLogin("rich@mail.com");
+        if (user1.getEmail().equals("rich@mail.com")) {
+            System.out.printf(user1.getPassword());
         } else {
-            System.out.print(user);
+            System.out.print(user1);
         }
 
 

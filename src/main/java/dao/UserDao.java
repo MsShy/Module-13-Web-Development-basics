@@ -14,7 +14,7 @@ import java.util.List;
 
 public class UserDao {
 
-    User user;
+  // User user;
     private Connection connection;
 
     private static final Logger log = LoggerFactory.getLogger(UserDao.class);
@@ -31,13 +31,8 @@ public class UserDao {
         try (PreparedStatement statement = connection.prepareStatement(select);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                user = new User();
-               user.setId(resultSet.getInt("id"));
-                user.setLastName(resultSet.getString("lastname"));
-                user.setFirtsName(resultSet.getString("firstname"));
-                user.setEmail(resultSet.getString("email"));
-                user.setYearBirth(resultSet.getString("YEAROFBIRTH"));
-                user.setPassword(resultSet.getString("password"));
+                User user;
+                user=takeUser(resultSet);
 
                 users.add(user);
             }
@@ -56,21 +51,25 @@ public class UserDao {
         try (PreparedStatement statement = connection.prepareStatement(select);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                user = new User();
-                user.setId(resultSet.getInt("id"));
-                user.setLastName(resultSet.getString("lastname"));
-                user.setFirtsName(resultSet.getString("firstname"));
-                user.setEmail(resultSet.getString("email"));
-                user.setYearBirth(resultSet.getString("YEAROFBIRTH"));
-                user.setPassword(resultSet.getString("password"));
+                User user=takeUser(resultSet);
 
-				/*user=(new User(  resultSet.getInt("id"), resultSet.getString("lastname"), resultSet.getString("firstname"),
-                        resultSet.getString("email"),resultSet.getString("YEAROFBIRTH"), resultSet.getString("password")));*/
+
             }
         } catch (SQLException e) {
             log.error(e.getMessage(), e);
         }
 
+        return user;
+    }
+
+    private User takeUser(ResultSet resultSet) throws SQLException {
+        User user=new User();
+        user.setId(resultSet.getInt("id"));
+        user.setLastName(resultSet.getString("lastname"));
+        user.setFirtsName(resultSet.getString("firstname"));
+        user.setEmail(resultSet.getString("email"));
+        user.setYearBirth(resultSet.getString("YEAROFBIRTH"));
+        user.setPassword(resultSet.getString("password"));
         return user;
     }
 
